@@ -1,0 +1,81 @@
+﻿@using BeHiveV2Server.Services.Database.Models;
+@using BeHiveV2Server.Services.Other;
+@model PaginatedList<UserIdentity>
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<!--add new user, search user-->
+<div class="container-fluid">
+
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="/admin">admin</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                users
+            </li>
+        </ol>
+    </div>
+
+    <form class="row g-3" method="get">
+        <div class="col-auto">
+            <select class="form-select" name="searchOption">
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "id"){ WriteLiteral("selected"); } value="id">Id</option>
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "name"){ WriteLiteral("selected"); } value="name">Name</option>
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "email"){ WriteLiteral("selected"); } value="email">Email</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" name="searchString" placeholder="search input" value="@ViewData["CurrentSearchString"]" />
+        </div>
+        <div class="col-auto">
+            <input type="submit" value="search" class="btn btn-secondary" />
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="/admin/users/CreateUser">Add user</a>
+        </div>
+    </form>
+</div>
+
+<!--list of users, manage button-->
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserIdentity user in Model){
+                <tr>
+                    <th scope="row">@user.Id</th>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td><a class="btn btn-primary" href="/admin/users/manage/@user.Id">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--page-->
+<div class="container-fluid">
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a class="btn btn-outline-secondary @prevDisabled" href="/admin/users?searchOption=@ViewData["CurrentSearchOption"]&currentSearch=@ViewData["CurrentSearchString"]&pageNumber=@{WriteLiteral(Model.PageIndex-1);}">
+        previous
+    </a>
+    <a class="btn btn-outline-secondary @nextDisabled" href="/admin/users?searchOption=@ViewData["CurrentSearchOption"]&currentSearch=@ViewData["CurrentSearchString"]&pageNumber=@{WriteLiteral(Model.PageIndex+1);}">
+        next
+    </a >
+</div>

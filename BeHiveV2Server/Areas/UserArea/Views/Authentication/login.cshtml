@@ -1,0 +1,24 @@
+﻿@model BeHiveV2Server.Areas.UserArea.Models.LogInModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="container-sm ms-auto me-auto">
+    <div class="container-fluid">
+        <form method="post" class="col-8 offset-2">
+            <div class="mb-3">
+                <label class="form-label" for="usernameinput">User name</label>
+                <input class="form-control" id="usernameinput" type="text" name="UserIdentity" value="@Model.UserIdentity" />
+                @Html.ValidationMessageFor(m => m.UserIdentity, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="passwordinput">Password</label>
+                <input id="passwordinput" class="form-control" type="password" name="Password" value="@Model.Password" />
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" name="submit" class="btn btn-primary" /><br />
+        </form>
+    </div>
+</div>

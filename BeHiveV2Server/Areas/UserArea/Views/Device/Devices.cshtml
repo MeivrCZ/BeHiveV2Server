@@ -1,0 +1,87 @@
+﻿@using BeHiveV2Server.Models;
+@using BeHiveV2Server.Services.Other;
+@model PaginatedList<Device>
+
+@{
+    ViewData["Title"] = "Devices";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                devices
+            </li>
+        </ol>
+    </div>
+
+    <form class="row g-3" method="get">
+        <div class="col-auto">
+            <select class="form-select" name="searchOption">
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "id"){ WriteLiteral("selected"); } value="id">Id</option>
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "name"){ WriteLiteral("selected"); } value="name">Name</option>
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "serialNumber"){ WriteLiteral("selected"); } value="serialNumber">Serial Number</option>
+                <option @if(ViewData["CurrentSearchOption"].ToString() == "model"){ WriteLiteral("selected"); } value="model">Model</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" name="searchString" placeholder="search input" value="@ViewData["CurrentSearchString"]" />
+        </div>
+        <div class="col-auto">
+            <input type="submit" value="search" class="btn btn-secondary" />
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="/devices/AddDevice">Add device</a>
+        </div>
+    </form>
+</div>
+
+<!--list of users, manage button-->
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Serial number</th>
+                <th scope="col">Model</th>
+                <th scope="col">Virtual</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Device device in Model)
+            {
+                <tr>
+                    <th scope="row">@device.id</th>
+                    <td>@device.name</td>
+                    <td>@device.serialNumber</td>
+                    <td>@EnumReaders.ReadDeviceModelEnum(device.model)</td>
+                    <td>@device.isVirtual</td>
+                    <td><a class="btn btn-primary" href="/devices/manage/@device.id">Manage</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--page-->
+<div class="container-fluid">
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a class="btn btn-outline-secondary @prevDisabled" href="/devices?searchOption=@ViewData["CurrentSearchOption"]&currentSearch=@ViewData["CurrentSearchString"]&pageNumber=@{
+        WriteLiteral(Model.PageIndex-1);
+}">
+        previous
+    </a>
+    <a class="btn btn-outline-secondary @nextDisabled" href="/devices?searchOption=@ViewData["CurrentSearchOption"]&currentSearch=@ViewData["CurrentSearchString"]&pageNumber=@{
+        WriteLiteral(Model.PageIndex+1);
+}">
+        next
+    </a>
+</div>

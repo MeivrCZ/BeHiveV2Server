@@ -1,0 +1,45 @@
+﻿@using BeHiveV2Server.Areas.AdminArea.Models;
+@model CreateDeviceModel
+
+@{
+    ViewData["Title"] = "Create virtual device";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="container-sm ms-auto me-auto mt-2">
+    <div class="container-fluid">
+        <div aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/admin">admin</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/admin/devices">devices</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    create virtual device
+                </li>
+            </ol>
+        </div>
+        <form method="post" class="col-8 offset-2">
+            <div class="mb-3">
+                <label class="form-label" for="nameinput">Name</label>
+                <input class="form-control" id="nameinput" type="text" name="name" value="@Model.name" />
+                @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="emailinput">model</label>
+                <select class="form-select" aria-label="Default select example" name="model">
+                    <option value="SHB1" @if(Model.model == "SHB1"){ WriteLiteral("selected");}>SHB1</option>
+                    <option value="SHP1" @if(Model.model == "SHP1"){ WriteLiteral("selected");}>SHP1</option>
+                    <option value="MET1" @if(Model.model == "MET1"){ WriteLiteral("selected");}>MET1</option>
+                </select>
+            </div>
+
+            <p>
+                <input type="submit" class="btn btn-primary" name="submit" />
+                <a href="/admin/devices" class="btn btn-danger">storno</a>
+            </p>
+        </form>
+    </div>
+</div>

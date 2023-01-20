@@ -1,0 +1,232 @@
+﻿@using BeHiveV2Server.Models;
+@using BeHiveV2Server.Models.Hives.SHB1Device;
+@using BeHiveV2Server.Models.Hives.SHB1Device.Data;
+@using BeHiveV2Server.Services.Other;
+@using System.Text.Json;
+@using BeHiveV2Server.Areas.UserArea.Models;
+@model ManageSHB1Model;
+@{
+    ViewData["Title"] = "Manage";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+@section Styles{
+    <link href="~/css/Manage.css" rel="stylesheet" />
+}
+
+<div class="container-fluid">
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="/devices">devices</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                manage
+            </li>
+        </ol>
+    </div>
+
+    <div class="row row-cols-md-2 row-cols-1">
+        <div class="col">
+            picture (not implemented)
+        </div>
+        <div class="col border-bottom">
+            <p>Name: @Model.device.name</p>
+            <p>Model: @EnumReaders.ReadDeviceModelEnum(Model.device.model)</p>
+            <p>Serial Number: @Model.serialNumber</p>
+            <p>Owner: @{ if (Model.device.owner != null) { WriteLiteral(Model.device.owner.UserName); } else { WriteLiteral("none"); } }</p>
+            <h3>Last update: <div id="LastUpdate"></div></h3>
+        </div>
+        <div class="col">
+            <canvas class="chartheight" id="WeightChart"></canvas>
+        </div>
+        <div class="col">
+            <canvas class="chartheight" id="InsideTempChart"></canvas>
+        </div>
+        <div class="col">
+            <canvas class="chartheight" id="HumidityChart"></canvas>
+        </div>
+        <div class="col">
+            <canvas class="chartheight" id="OutsideTempChart"></canvas>
+        </div>
+        <div class="col">
+            <canvas class="chartheight" id="PressureChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="\js\chart-js\package\dist\chart.umd.js"></script>
+    <script>
+        function timeConverter(UNIX_timestamp) {
+            var a = new Date(UNIX_timestamp * 1000);
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var year = a.getFullYear();
+            var month = months[a.getMonth()];
+            var date = a.getDate();
+            var hour = a.getHours();
+            var min = a.getMinutes();
+            var sec = a.getSeconds();
+            var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+
+            return time;
+        }
+
+        var lastUpdate = @Model.lastUpdate.ToString();
+        if(lastUpdate == -1){
+            lastUpdate = "no data";
+        }
+        else{
+            lastUpdate = timeConverter(lastUpdate);
+        }
+        var lastUpdateNode = document.getElementById('LastUpdate');
+        lastUpdateNode.replaceWith(lastUpdate);
+
+        //Weight chart
+        var WeightUnixTime = @JsonSerializer.Serialize(Model.weight.Keys.Reverse());
+        var WeightTime = [];
+        var Weight = @JsonSerializer.Serialize(Model.weight.Values.Reverse());
+
+        for (i = 0; i < WeightUnixTime.length; i++) {
+            WeightTime.push(timeConverter(WeightUnixTime[i]));
+        }
+
+        new Chart(
+            document.getElementById('WeightChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: WeightTime,
+                    datasets: [{
+                        label: 'Weight',
+                        data: Weight,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                }
+            }
+        );
+
+
+        //Inside temperature
+        var InsideTempUnixTime = @JsonSerializer.Serialize(Model.insideTemperature.Keys.Reverse());
+        var InsideTempTime = [];
+        var InsideTemp = @JsonSerializer.Serialize(Model.insideTemperature.Values.Reverse());
+
+        for (i = 0; i < InsideTempUnixTime.length; i++) {
+            InsideTempTime.push(timeConverter(InsideTempUnixTime[i]));
+        }
+
+        new Chart(
+            document.getElementById('InsideTempChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: InsideTempTime,
+                    datasets: [{
+                        label: 'Inside temperature',
+                        data: InsideTemp,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                }
+            }
+        );
+
+        //Humidity
+        var HumidityUnixTime = @JsonSerializer.Serialize(Model.humidity.Keys.Reverse());
+        var HumidityTime = [];
+        var Humidity = @JsonSerializer.Serialize(Model.humidity.Values.Reverse());
+
+        for (i = 0; i < HumidityUnixTime.length; i++) {
+            HumidityTime.push(timeConverter(HumidityUnixTime[i]));
+        }
+
+        new Chart(
+            document.getElementById('HumidityChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: HumidityTime,
+                    datasets: [{
+                        label: 'Humidity',
+                        data: Humidity,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                }
+            }
+        );
+
+        //outside temperature
+        var OutTempUnixTime = @JsonSerializer.Serialize(Model.outTemperature.Keys.Reverse());
+        var OutTempTime = [];
+        var OutTemp = @JsonSerializer.Serialize(Model.outTemperature.Values.Reverse());
+
+        for (i = 0; i < OutTempUnixTime.length; i++) {
+            OutTempTime.push(timeConverter(OutTempUnixTime[i]));
+        }
+
+        new Chart(
+            document.getElementById('OutsideTempChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: OutTempTime,
+                    datasets: [{
+                        label: 'Outside temperature',
+                        data: OutTemp,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                }
+            }
+        );
+
+        //pressure
+        var PressureUnixTime = @JsonSerializer.Serialize(Model.pressure.Keys.Reverse());
+        var PressureTime = [];
+        var Pressure = @JsonSerializer.Serialize(Model.pressure.Values.Reverse());
+
+        for (i = 0; i < PressureUnixTime.length; i++) {
+            PressureTime.push(timeConverter(PressureUnixTime[i]));
+        }
+
+        new Chart(
+            document.getElementById('PressureChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: PressureTime,
+                    datasets: [{
+                        label: 'Pressure',
+                        data: Pressure,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                }
+            }
+        );
+
+    </script>
+}

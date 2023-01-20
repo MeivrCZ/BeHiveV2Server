@@ -1,0 +1,39 @@
+﻿@using BeHiveV2Server.Areas.AdminArea.Models;
+@model CreateUserModel
+
+@{
+    ViewData["Title"] = "Create user";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="container-sm ms-auto me-auto mt-2">
+    <div class="container-fluid">
+        <form method="post" class="col-8 offset-2">
+            <div class="mb-3">
+                <label class="form-label" for="usernameinput">User name</label>
+                <input class="form-control" id="usernameinput" type="text" name="userName" value="@Model.userName" />
+                @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="emailinput">Email</label>
+                <input id="emailinput" class="form-control" type="email" name="email" value="@Model.email" />
+                @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="passwordinput">Password</label>
+                <input id="passwordinput" class="form-control" type="password" name="password" value="@Model.password" />
+                @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="passwordconfirminput">Password</label>
+                <input id="passwordconfirminput" class="form-control" type="password" name="passwordConformation" value="@Model.passwordConformation" />
+                @Html.ValidationMessageFor(m => m.passwordConformation, "", new { @class = "text-danger" })
+            </div>
+
+            <p>
+                <input type="submit" class="btn btn-primary" name="submit" />
+                <a href="/admin/users" class="btn btn-danger">storno</a>
+            </p>
+        </form>
+    </div>
+</div>

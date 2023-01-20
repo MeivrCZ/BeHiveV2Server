@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+@section Styles{
+    <link href="~/css/Admin.css" rel="stylesheet" />
+}
+
+
+
+<div class="container-fluid align-content-center">
+        <div aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    admin
+                </li>
+            </ol>
+        </div>
+    <div class="container-lg">
+        <div class="row row-cols-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <a class="text-decoration-none" href="/admin/users">
+                    <div class="card h-100">
+                        <img class="card-img" src="~/img/user-manage.png" alt="uživatelé obrázek"/>
+                        <div class="card-body text-center align-content-center btn btn-secondary card-body-corrector">
+                            <h5>Manage users</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a class="text-decoration-none" href="/admin/devices">
+                    <div class="card h-100">
+                        <img class="card-img" src="~/img/device.png" alt="device obrázek" />
+                        <div class="card-body text-center align-content-center btn btn-secondary card-body-corrector">
+                            <h5>manage devices</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a class="text-decoration-none" href="#">
+                    <div class="card h-100">
+                        <img class="card-img" src="~/img/database.png" alt="database obrázek" />
+                        <div class="card-body text-center align-content-center btn btn-secondary card-body-corrector">
+                            <h5>database</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a class="text-decoration-none" href="#">
+                    <div class="card h-100">
+                        <img class="card-img" src="~/img/console.png" alt="console obrázek" />
+                        <div class="card-body text-center align-content-center btn btn-secondary card-body-corrector">
+                            <h5>console</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
