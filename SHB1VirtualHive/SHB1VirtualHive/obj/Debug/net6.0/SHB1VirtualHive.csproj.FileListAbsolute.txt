@@ -1,0 +1,15 @@
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.csproj.AssemblyReference.cache
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.AssemblyInfoInputs.cache
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.AssemblyInfo.cs
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.csproj.CoreCompileInputs.cache
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\bin\Debug\net6.0\SHB1VirtualHive.exe
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\bin\Debug\net6.0\SHB1VirtualHive.deps.json
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\bin\Debug\net6.0\SHB1VirtualHive.runtimeconfig.json
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\bin\Debug\net6.0\SHB1VirtualHive.dll
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\bin\Debug\net6.0\SHB1VirtualHive.pdb
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.dll
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\refint\SHB1VirtualHive.dll
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.pdb
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\SHB1VirtualHive.genruntimeconfig.cache
+C:\Users\vojta\Desktop\BeHiveV2\SHB1VirtualHive\SHB1VirtualHive\obj\Debug\net6.0\ref\SHB1VirtualHive.dll
